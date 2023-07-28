@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import About from "./About";
 import ArticleList from "./ArticleList";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 function HomePage() {
   // fetch data for posts
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const [data: posts, isLoaded] = useQuery("http://localhost:4000/posts");
 
   useEffect(() => {
     setIsLoaded(false);
@@ -18,6 +18,7 @@ function HomePage() {
   }, []);
 
   // set the document title
+  useDocumentTitle("Underracted | Home")
   useEffect(() => {
     document.title = "Underreacted | Home";
   }, []);
@@ -25,7 +26,7 @@ function HomePage() {
   return (
     <>
       <About />
-      {isLoaded ? <ArticleList posts={posts} /> : <h3>Loading...</h3>}
+      {isLoaded ? <ArticleList posts={posts} /> : <h3 id="load">Loading...</h3>}
     </>
   );
 }
